@@ -67,7 +67,8 @@ function MSC.findTarget(ply, tgString)
         return player.GetAll()
     else
         local targets = {}
-        for _,v in pairs(string.Explode(" ", tgString)) do
+        for _,v in pairs(string.Explode(',', tgString)) do
+            v = string.Trim(v)
             if v != "" then
                 local found = MSC.findPlayers(v)
                 for _, ply in ipairs(found) do
