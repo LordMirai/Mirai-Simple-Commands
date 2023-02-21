@@ -43,14 +43,45 @@ MSC.Callbacks["slay"] = function(ply, data, ...)
     local args = {...}
     local target = args[1]
 
-    local targetPly = MSC.findPlayer(target)
+    local targetPly = MSC.findTarget(ply, target)
+    if not targetPly then
+        MSC.sendMessage(ply, "Player not found.",MSC.COLOR_WARNING)
+        return
+    end
+    if targetPly:IsPlayer() then
+        MSC.slay(targetPly)
+        
+        MSC.sendMessage(ply, "Player "..targetPly:Nick().." has been slain.",MSC.COLOR_SUCCESS)
+        MSC.sendMessage(targetPly, "You have been slain by "..ply:Nick()..".",MSC.COLOR_ERROR)
+    else
+        local nicks = {}
+        for k,v in ipairs(targetPly) do
+            table.Add(nicks, v:Nick())
+            MSC.slay(v)
+            MSC.sendMessage(v, "You have been slain by "..ply:Nick()..".",MSC.COLOR_ERROR)
+        end
+        MSC.sendMessage(ply, "The following players have been slain:\n"..table.concat(nicks,", "),MSC.COLOR_SUCCESS)
+end
+
+
+MSC.Callbacks["kick"] = function(ply, data, ...)
+    local args = {...}
+    local target = args[1]
+
+    local targetPly = MSC.findTarget(ply, target)
     if not targetPly then
         MSC.sendMessage(ply, "Player not found.",MSC.COLOR_WARNING)
         return
     end
 
-    MSC.slay(targetPly)
-    
-    MSC.sendMessage(ply, "Player "..targetPly:Nick().." has been slain.",MSC.COLOR_SUCCESS)
-    MSC.sendMessage(targetPly, "You have been slain by "..ply:Nick()..".",MSC.COLOR_ERROR)
+    if istable(targetPly) then
+        MSC.sendMessage(ply, "Multiple players found.",MSC.COLOR_WARNING)
+        return
+    end
+
+    table.remove(args,1)
+
+    local reason = table.concat(args," ")
+    local msg = "[MSC] You have been kicked by "..ply:Nick()..". Reason: "..reason
+    target:Kick(msg)
 end

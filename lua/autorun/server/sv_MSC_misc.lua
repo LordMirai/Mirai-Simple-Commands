@@ -34,5 +34,49 @@ function MSC.slay(ply)
         slayer:Spawn()
 
         ply:TakeDamage(ply:Health()*2, slayer, slayer)
+        if ply:Alive() then
+            ply:Kill()
+        end
+    end
+end
+
+function MSC.findTarget(ply, tgString)
+    if tgString == "^" then
+        if ply:IsValid() then
+            return ply
+        else
+            return nil 
+        end
+    elseif tgString == "@" then
+        local ent = ply:GetEyeTrace().Entity
+        if ent:IsValid() then
+            if ent:IsPlayer() then
+                return ent
+            end
+        end
+        return nil
+    elseif tgString == "?" then
+        local adminList = {}
+        for i, ply in ipairs(player.GetAll()) do
+            if ply:IsAdmin() then
+                table.insert(adminList, ply)
+            end
+        end
+        return adminList
+    elseif tgString == "*" then
+        return player.GetAll()
+    else
+        local targets = {}
+        for _,v in pairs(string.Explode(" ", tgString)) do
+            if v != "" then
+                local found = MSC.findPlayers(v)
+                for _, ply in ipairs(found) do
+                    if !table.HasValue(targets, ply) then -- unique
+                        table.insert(targets, ply)
+                    end
+                end
+            end
+        end
+        return targets
     end
 end
