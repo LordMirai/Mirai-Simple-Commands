@@ -8,21 +8,21 @@ hook.Add("PlayerSay", "MSC_Say_Command_Callback", function(ply,msg)
     end
 end)
 
-function MSC.sendMessage(ply,msg,col)
+function MSC.sendMessage(ply, msg, col)
     net.Start('MSC_RequestMessage')
     net.WriteString(msg or "")
     net.WriteColor(col or Color(250,250,250))
     net.Send(ply)
 end
 
-function MSC.sendError(ply,msg)
+function MSC.sendError(ply, msg)
     net.Start('MSC_RequestMessage')
     net.WriteString(msg or "")
     net.WriteColor(Color(220,20,20))
     net.Send(ply)
 end
 
-function MSC.broadcast(msg,long)
+function MSC.broadcast(msg, long)
     net.Start('MSC_RequestMessageLong')
     net.WriteString(msg or "")
     net.WriteColor(Color(250,250,250))

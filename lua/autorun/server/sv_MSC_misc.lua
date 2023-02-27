@@ -40,14 +40,14 @@ function MSC.slay(ply)
     end
 end
 
-function MSC.findTarget(ply, tgString)
-    if tgString == "^" then
+function MSC.findTarget(ply, tgString, multi)
+    if tgString == "^" then -- get self
         if ply:IsValid() then
             return ply
         else
             return nil 
         end
-    elseif tgString == "@" then
+    elseif tgString == "@" then -- get player under crosshair
         local ent = ply:GetEyeTrace().Entity
         if ent:IsValid() then
             if ent:IsPlayer() then
@@ -55,7 +55,7 @@ function MSC.findTarget(ply, tgString)
             end
         end
         return nil
-    elseif tgString == "?" then
+    elseif tgString == "?" then -- get admins
         local adminList = {}
         for i, ply in ipairs(player.GetAll()) do
             if ply:IsAdmin() then
@@ -63,7 +63,14 @@ function MSC.findTarget(ply, tgString)
             end
         end
         return adminList
-    elseif tgString == "*" then
+    elseif string.StartsWith(tgString, "$") then -- get by SteamID
+        local id = string.sub(tgString, 2)
+        local ply = player.GetBySteamID(id)
+        if ply:IsValid() then
+            return ply
+        end
+        return nil
+    elseif tgString == "*" then -- get all players
         return player.GetAll()
     else
         local targets = {}

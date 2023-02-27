@@ -12,7 +12,8 @@ MSC.Commands[""] = {
     optArgs = {},
     callback = MSC.Callbacks[""],
     disabled = false,
-    adminOnly = false
+    adminOnly = false,
+    multi = false,
 }
 
 function MSC.formatCmd(cmdTable)
@@ -30,8 +31,8 @@ MSC.Commands["example"] = {
     name = "Example Command",
     cmd = "example",
     desc = "This is an example command.",
-    args = {"arg1","arg2"},
-    optArgs = {"opt","args","..."},
+    args = {"arg1", "arg2"},
+    optArgs = {"opt", "args", "..."},
     callback = MSC.Callbacks["example"],
     disabled = false
 }
@@ -54,7 +55,8 @@ MSC.Commands["kick"] = {
     optArgs = {"reason"},
     callback = MSC.Callbacks["kick"],
     disabled = false,
-    adminOnly = true
+    adminOnly = true,
+    multi = true
 }
 
 MSC.Commands["slay"] = {
@@ -65,5 +67,6 @@ MSC.Commands["slay"] = {
     optArgs = {},
     callback = MSC.Callbacks["slay"],
     disabled = false,
-    adminOnly = true
+    adminOnly = true,
+    multi = true
 }
