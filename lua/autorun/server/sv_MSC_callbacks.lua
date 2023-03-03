@@ -61,6 +61,7 @@ MSC.Callbacks["slay"] = function(ply, data, ...)
             MSC.sendMessage(v, "You have been slain by "..ply:Nick()..".", MSC.COLOR_ERROR)
         end
         MSC.sendMessage(ply, "The following players have been slain:\n"..table.concat(nicks,", ").."\n"..tostring(#targetPly).." players have been slain.", MSC.COLOR_SUCCESS)
+    end
 end
 
 

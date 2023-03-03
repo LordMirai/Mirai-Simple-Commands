@@ -37,7 +37,7 @@ MSC.Commands["example"] = {
     disabled = false
 }
 
-MSC.Commands["help"]{
+MSC.Commands["help"] = {
     name = "List Commands",
     cmd = "help",
     desc = "Lists all commands, with args.",

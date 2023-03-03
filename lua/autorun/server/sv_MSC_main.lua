@@ -25,7 +25,7 @@ end
 function MSC.broadcast(msg, long)
     net.Start('MSC_RequestMessageLong')
     net.WriteString(msg or "")
-    net.WriteColor(Color(250,250,250))
+    net.WriteColor(MSC.COLOR_DEFAULT)
     net.WriteBool(long or false)
     net.Broadcast()
 end

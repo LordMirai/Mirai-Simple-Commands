@@ -1,6 +1,7 @@
 MSC = MSC or {}
 MSC.Commands = MSC.Commands or {}
 MSC.Messages = MSC.Messages or {}
+MSC.prefixes = MSC.prefixes or {}
 
 function MSC.parse(cmdString)
     local str = string.Trim(cmdString)

@@ -1,8 +1,8 @@
 MSC = MSC or {}
 
 MSC.prefixes = {
-    '{' = true,
-    ':' = true
+    ['{'] = true,
+    [':'] = true
 }
 
 
